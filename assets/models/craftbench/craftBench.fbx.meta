@@ -1,0 +1,96 @@
+{
+  "ver": "2.3.13",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "41ee204f-4f12-4af0-9911-92e2d3bb9caf",
+  "files": [],
+  "subMetas": {
+    "46fe8": {
+      "importer": "gltf-mesh",
+      "uuid": "41ee204f-4f12-4af0-9911-92e2d3bb9caf@46fe8",
+      "displayName": "",
+      "id": "46fe8",
+      "name": "Cube.159.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 1277
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "a5896": {
+      "importer": "gltf-material",
+      "uuid": "41ee204f-4f12-4af0-9911-92e2d3bb9caf@a5896",
+      "displayName": "",
+      "id": "a5896",
+      "name": "T_props.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "9cc54": {
+      "importer": "gltf-scene",
+      "uuid": "41ee204f-4f12-4af0-9911-92e2d3bb9caf@9cc54",
+      "displayName": "",
+      "id": "9cc54",
+      "name": "craftBench.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "41ee204f-4f12-4af0-9911-92e2d3bb9caf@46fe8"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "41ee204f-4f12-4af0-9911-92e2d3bb9caf@a5896"
+      ],
+      "scenes": [
+        "41ee204f-4f12-4af0-9911-92e2d3bb9caf@9cc54"
+      ]
+    }
+  }
+}

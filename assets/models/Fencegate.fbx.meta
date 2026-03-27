@@ -1,0 +1,96 @@
+{
+  "ver": "2.3.13",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "4fa6252e-6a6a-4ae2-8a4b-e5f2b249b419",
+  "files": [],
+  "subMetas": {
+    "32996": {
+      "importer": "gltf-mesh",
+      "uuid": "4fa6252e-6a6a-4ae2-8a4b-e5f2b249b419@32996",
+      "displayName": "",
+      "id": "32996",
+      "name": "Cube.101.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 688
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "158f4": {
+      "importer": "gltf-material",
+      "uuid": "4fa6252e-6a6a-4ae2-8a4b-e5f2b249b419@158f4",
+      "displayName": "",
+      "id": "158f4",
+      "name": "T_props.002.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e7f01": {
+      "importer": "gltf-scene",
+      "uuid": "4fa6252e-6a6a-4ae2-8a4b-e5f2b249b419@e7f01",
+      "displayName": "",
+      "id": "e7f01",
+      "name": "Fencegate.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "4fa6252e-6a6a-4ae2-8a4b-e5f2b249b419@32996"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "4fa6252e-6a6a-4ae2-8a4b-e5f2b249b419@158f4"
+      ],
+      "scenes": [
+        "4fa6252e-6a6a-4ae2-8a4b-e5f2b249b419@e7f01"
+      ]
+    }
+  }
+}
