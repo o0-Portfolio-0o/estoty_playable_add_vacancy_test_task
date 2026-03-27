@@ -14,6 +14,8 @@ export class PlayerController extends Component {
     @property(PlayerAnimator)
     public animator: PlayerAnimator = null;
 
+    public isAttacking: boolean = false;
+
     private targetPosition: Vec3 = new Vec3();
     private isMoving: boolean = false;
     private readonly STOP_DISTANCE: number = 0.1;
@@ -32,12 +34,16 @@ export class PlayerController extends Component {
     }
 
     update(deltaTime: number) {
+        if (this.isAttacking) {
+            this.animator?.playAnimation(AnimationState.AXE);
+            return;
+        }
+
         if (!this.isMoving) {
             this.animator?.playAnimation(AnimationState.IDLE);
-            console.log(this.animator.isPlaying(AnimationState.IDLE))
             return;
-        };
-            console.log(this.animator.isPlaying(AnimationState.IDLE))
+        }
+
         const currentPosition = this.node.worldPosition;
         const direction = new Vec3();
         Vec3.subtract(direction, this.targetPosition, currentPosition);
@@ -47,7 +53,9 @@ export class PlayerController extends Component {
 
         if (distance < this.STOP_DISTANCE) {
             this.isMoving = false;
-            this.animator?.playAnimation(AnimationState.IDLE)
+            if (!this.isAttacking) {
+                this.animator?.playAnimation(AnimationState.IDLE)
+            }
             return;
         }
 

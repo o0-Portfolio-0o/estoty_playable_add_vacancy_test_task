@@ -28,6 +28,11 @@ export class PlayerAnimator extends Component {
 
         this._currentState = state;
         this.animation.play(state);
+
+        if (state === AnimationState.AXE) {
+            const animState = this.animation.getState(state);
+            if (animState) animState.speed = 2.0;
+        }
     }
 
     public isPlaying(state: AnimationState): boolean {
