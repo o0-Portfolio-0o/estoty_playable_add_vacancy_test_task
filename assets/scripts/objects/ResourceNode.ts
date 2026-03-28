@@ -25,11 +25,15 @@ export class ResourceNode extends Component {
     @property(Node)
     public meshL3: Node = null;
 
-    private _currentHits: number = 0;
-    private _isBeingAttacked: boolean = false;
-    private _attackTimer: number = 0;
+    public player: Node = null;
+
+    protected _playerController: PlayerController = null;
+    protected _currentHits: number = 0;
+    protected _isBeingAttacked: boolean = false;
+    protected _attackTimer: number = 0;
+    protected _isDestroyed: boolean = false;
+
     private readonly ATTACK_INTERVAL = 1.0;
-    private _playerController: PlayerController = null;
 
     onLoad(): void {
         this.player = find("GameRoot/IdBr_character")
@@ -72,7 +76,9 @@ export class ResourceNode extends Component {
         }
     }
 
-    private _onDestroy() {
+    protected _onDestroy() {
+        this._isDestroyed = true;
+
         const weaponLevel = GameManager.instance?.weaponLevel ?? 1;
         if (weaponLevel === 1) {
             ResourceManager.instance?.addResource1(1);
@@ -85,10 +91,12 @@ export class ResourceNode extends Component {
             if (this._playerController) {
                 this._playerController.isAttacking = false;
             }
-        })
+        }, 0.3);
     }
 
     update(deltaTime: number) {
+        if (this._isDestroyed) return;
+
         if (!this._isPlayerInRange() || !this._canBeAttacked()) {
             if (this._isBeingAttacked) {
                 this._isBeingAttacked = false;
