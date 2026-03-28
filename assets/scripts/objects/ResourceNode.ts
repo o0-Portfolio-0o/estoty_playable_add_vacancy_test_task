@@ -135,9 +135,31 @@ export class ResourceNode extends Component {
     private _updateMeshVisibility(): void {
         const hits = this._currentHits;
 
-        if (this.meshL1) this.meshL1.active = hits === 0;
-        if (this.meshL2) this.meshL2.active = hits === 1;
-        if (this.meshL3) this.meshL3.active = hits === 2;
+        if (hits === 0) {
+            if (this.meshL1) this.meshL1.active = true;
+            if (this.meshL2) this.meshL2.active = false;
+            if (this.meshL3) this.meshL3.active = false;
+            return;
+        }
+
+        const transitions: Record<number, [Node, Node]> = {
+            1: [this.meshL1, this.meshL2],
+            2: [this.meshL2, this.meshL3],
+        };
+
+        const transition = transitions[hits];
+        if (!transition) return;
+
+        const [from, to] = transition;
+        if (!from || !to) return;
+
+        tween(from)
+            .to(0.08, { scale: new Vec3(0, 0, 0) })
+            .call(() => {
+                from.active = false;
+                to.active = true;
+            })
+            .start();
     }
 
     private _isPlayerInRange(): boolean {
