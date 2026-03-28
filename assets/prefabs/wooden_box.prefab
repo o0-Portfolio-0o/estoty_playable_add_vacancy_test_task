@@ -813,6 +813,10 @@
     "__prefab": {
       "__id__": 33
     },
+    "hitParticlePrefab": {
+      "__uuid__": "7a666097-2475-4bf0-8334-28430d7434b0",
+      "__expectedType__": "cc.Prefab"
+    },
     "requiredWeaponLevel": 2,
     "hitsToDestroy": 3,
     "attackRange": 1.5,
@@ -825,7 +829,6 @@
     "meshL3": {
       "__id__": 22
     },
-    "player": null,
     "_id": ""
   },
   {
@@ -841,6 +844,7 @@
       "__id__": 0
     },
     "fileId": "acQmKW43xWM70Bsz5N7P6b",
+    "instance": null,
     "targetOverrides": null
   }
 ]

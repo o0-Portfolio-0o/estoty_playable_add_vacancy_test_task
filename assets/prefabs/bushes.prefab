@@ -441,6 +441,10 @@
     "__prefab": {
       "__id__": 18
     },
+    "hitParticlePrefab": {
+      "__uuid__": "276a000a-1f07-4862-9c7f-18b884a81e9d",
+      "__expectedType__": "cc.Prefab"
+    },
     "requiredWeaponLevel": 1,
     "hitsToDestroy": 3,
     "attackRange": 1.5,
@@ -453,7 +457,6 @@
     "meshL3": {
       "__id__": 2
     },
-    "player": null,
     "_id": ""
   },
   {

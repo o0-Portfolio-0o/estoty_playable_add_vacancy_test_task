@@ -4581,6 +4581,7 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "hitParticlePrefab": null,
     "requiredWeaponLevel": 3,
     "hitsToDestroy": 1,
     "attackRange": 1.5,

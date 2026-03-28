@@ -1,4 +1,4 @@
-import { _decorator, Component, Game, Node, Vec3, find, tween } from 'cc';
+import { _decorator, Component, Game, Node, Vec3, find, tween, instantiate, ParticleSystem, Prefab } from 'cc';
 import { ResourceManager } from '../managers/ResourceManager';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { PlayerController } from '../player/PlayerController';
@@ -6,6 +6,9 @@ const { ccclass, property } = _decorator;
 
 @ccclass('ResourceNode')
 export class ResourceNode extends Component {
+
+    @property(Prefab)
+    public hitParticlePrefab: Prefab = null;
 
     @property
     public requiredWeaponLevel: number = 1;
@@ -75,6 +78,8 @@ export class ResourceNode extends Component {
     protected _onDestroy() {
         this._isDestroyed = true;
 
+        this.unscheduleAllCallbacks();
+
         const weaponLevel = GameManager.instance?.weaponLevel ?? 1;
         if (weaponLevel === 1) {
             ResourceManager.instance?.addResource1(1);
@@ -90,6 +95,27 @@ export class ResourceNode extends Component {
         }, 0.3);
     }
 
+    private _spawnParticles() {
+        if (!this.hitParticlePrefab) return;
+
+        const particles = instantiate(this.hitParticlePrefab);
+        this.node.parent.addChild(particles);
+
+        particles.setWorldPosition(new Vec3(
+            this.node.worldPosition.x,
+            this.node.worldPosition.y + 0.5,
+            this.node.worldPosition.z,
+        ));
+
+        const particleSystem = particles.getComponent(ParticleSystem);
+
+        if (particleSystem) particleSystem.play();
+
+        this.scheduleOnce(() => {
+            particles.destroy();
+        }, 1.0);
+    }
+
     private _playHitFeedback() {
         tween(this.node).stop();
 
@@ -103,6 +129,7 @@ export class ResourceNode extends Component {
             ) })
             .to(0.08, { scale: originalScale })
             .start();
+        this._spawnParticles();
     }
 
     private _updateMeshVisibility(): void {
@@ -134,6 +161,7 @@ export class ResourceNode extends Component {
 
         if (this._currentHits >= this.hitsToDestroy) {
             this._onDestroy();
+            return;
         }
 
         this.scheduleOnce(() => {
