@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "52ab3194-0fac-44cf-85e5-970423435784",
+  "uuid": "c833776e-6a36-4a4f-97c6-213a19464320",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "wooden_box"
+    "syncNodeName": "Fencegate"
   }
 }

@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "4308acbb-d089-4377-a1a9-493370e7f367",
+  "uuid": "4b688c86-87fd-4a58-a98e-1bfb80b6aeea",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "bushes"
+    "syncNodeName": "FenceV1"
   }
 }
