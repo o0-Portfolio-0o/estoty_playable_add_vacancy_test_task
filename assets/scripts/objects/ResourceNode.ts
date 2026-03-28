@@ -1,4 +1,4 @@
-import { _decorator, Component, Game, Node, Vec3, find } from 'cc';
+import { _decorator, Component, Game, Node, Vec3, find, tween } from 'cc';
 import { ResourceManager } from '../managers/ResourceManager';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { PlayerController } from '../player/PlayerController';
@@ -34,6 +34,7 @@ export class ResourceNode extends Component {
     protected _isDestroyed: boolean = false;
 
     private readonly ATTACK_INTERVAL = 1.0;
+    private _hitFeedbackTriggered:boolean = false;
 
     onLoad(): void {
         this.player = find("GameRoot/IdBr_character")
@@ -42,6 +43,66 @@ export class ResourceNode extends Component {
             this._playerController = this.player.getComponent(PlayerController);
         }
         this._updateMeshVisibility();
+    }
+
+    update(deltaTime: number) {
+        if (this._isDestroyed) return;
+
+        if (!this._isPlayerInRange() || !this._canBeAttacked()) {
+            if (this._isBeingAttacked) {
+                this._isBeingAttacked = false;
+                this._hitFeedbackTriggered = false;
+                if (this._playerController) this._playerController.isAttacking = false;
+            }
+            return;
+        }
+
+        this._isBeingAttacked = true;
+        if (this._playerController) this._playerController.isAttacking = true;
+        this._attackTimer += deltaTime;
+
+        if (this._attackTimer >= this.ATTACK_INTERVAL * 0.6 && !this._hitFeedbackTriggered) {
+            this._hitFeedbackTriggered = true;
+            this._playHitFeedback();
+        }
+
+        if (this._attackTimer >= this.ATTACK_INTERVAL) {
+            this._attackTimer = 0;
+            this._onHit();
+        }
+    }
+
+    protected _onDestroy() {
+        this._isDestroyed = true;
+
+        const weaponLevel = GameManager.instance?.weaponLevel ?? 1;
+        if (weaponLevel === 1) {
+            ResourceManager.instance?.addResource1(1);
+        } else {
+            ResourceManager.instance?.addResource2(1);
+        }
+
+        this.node.active = false;
+        this.scheduleOnce(() => {
+            if (this._playerController) {
+                this._playerController.isAttacking = false;
+            }
+        }, 0.3);
+    }
+
+    private _playHitFeedback() {
+        tween(this.node).stop();
+
+        const originalScale = this.node.scale.clone();
+
+        tween(this.node)
+            .to(0.08, { scale: new Vec3(
+                originalScale.x * 1.2,
+                originalScale.y * 1.2,
+                originalScale.z * 1.2,
+            ) })
+            .to(0.08, { scale: originalScale })
+            .start();
     }
 
     private _updateMeshVisibility(): void {
@@ -74,45 +135,10 @@ export class ResourceNode extends Component {
         if (this._currentHits >= this.hitsToDestroy) {
             this._onDestroy();
         }
-    }
 
-    protected _onDestroy() {
-        this._isDestroyed = true;
-
-        const weaponLevel = GameManager.instance?.weaponLevel ?? 1;
-        if (weaponLevel === 1) {
-            ResourceManager.instance?.addResource1(1);
-        } else {
-            ResourceManager.instance?.addResource2(1);
-        }
-
-        this.node.active = false;
         this.scheduleOnce(() => {
-            if (this._playerController) {
-                this._playerController.isAttacking = false;
-            }
-        }, 0.3);
-    }
-
-    update(deltaTime: number) {
-        if (this._isDestroyed) return;
-
-        if (!this._isPlayerInRange() || !this._canBeAttacked()) {
-            if (this._isBeingAttacked) {
-                this._isBeingAttacked = false;
-                if (this._playerController) this._playerController.isAttacking = false;
-            }
-            return;
-        }
-
-        this._isBeingAttacked = true;
-        if (this._playerController) this._playerController.isAttacking = true;
-        this._attackTimer += deltaTime;
-
-        if (this._attackTimer >= this.ATTACK_INTERVAL) {
-            this._attackTimer = 0;
-            this._onHit();
-        }
+            this._hitFeedbackTriggered = false;
+        }, 0.8);
     }
 }
 
