@@ -15,6 +15,7 @@ export class WeaponController extends Component {
     public weaponL3: Node = null;
 
     start(): void {
+        console.log('WeaponController start, Game Manager', GameManager.instance);
         GameManager.instance?.node.on('weapon-upgraded', this._onWeaponUpgraded, this);
         this._updateWeaponVisibility(WeaponLevel.L1);
     }
@@ -25,10 +26,12 @@ export class WeaponController extends Component {
     }
 
     private _onWeaponUpgraded(level: WeaponLevel) {
+        console.log('weapon upgrade to: ', level)
         this._updateWeaponVisibility(level);
     }
 
     private _updateWeaponVisibility(level: WeaponLevel) {
+            console.log('updating weapons - L1:', this.weaponL1, 'L2:', this.weaponL2, 'L3:', this.weaponL3);
         if (this.weaponL1) this.weaponL1.active = level === WeaponLevel.L1;
         if (this.weaponL2) this.weaponL2.active = level === WeaponLevel.L2;
         if (this.weaponL3) this.weaponL3.active = level === WeaponLevel.L3;

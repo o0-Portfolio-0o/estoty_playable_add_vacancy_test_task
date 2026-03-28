@@ -1,4 +1,4 @@
-import { _decorator, Component, Game, Node, Vec3 } from 'cc';
+import { _decorator, Component, Game, Node, Vec3, find } from 'cc';
 import { ResourceManager } from '../managers/ResourceManager';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { PlayerController } from '../player/PlayerController';
@@ -25,9 +25,6 @@ export class ResourceNode extends Component {
     @property(Node)
     public meshL3: Node = null;
 
-    @property(Node)
-    public player: Node = null;
-
     private _currentHits: number = 0;
     private _isBeingAttacked: boolean = false;
     private _attackTimer: number = 0;
@@ -35,7 +32,9 @@ export class ResourceNode extends Component {
     private _playerController: PlayerController = null;
 
     onLoad(): void {
+        this.player = find("GameRoot/IdBr_character")
         if (this.player) {
+
             this._playerController = this.player.getComponent(PlayerController);
         }
         this._updateMeshVisibility();
