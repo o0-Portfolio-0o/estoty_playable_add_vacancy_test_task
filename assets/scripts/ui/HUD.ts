@@ -16,7 +16,7 @@ export class HUD extends Component {
     @property(CraftBench)
     public craftBench: CraftBench = null;
 
-    onLoad() {
+    start() {
         //TODO: Extract to method attachlisteners
         //TODO: replace strings for RESOURCE_CHANGE: 'resource-changed'
 
@@ -64,14 +64,6 @@ export class HUD extends Component {
 
     private _showUpgradeModal() {
         if  (this.upgradeModal) this.upgradeModal.active = true;
-    }
-
-    start() {
-
-    }
-
-    update(deltaTime: number) {
-        
     }
 }
 

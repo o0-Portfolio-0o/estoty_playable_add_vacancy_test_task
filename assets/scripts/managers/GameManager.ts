@@ -37,6 +37,7 @@ export class GameManager extends Component {
     }
 
     public triggerWin() {
+        console.log('Game manager game-win fired!')
         this.state = GameState.WIN;
         this.node.emit('game-win');
     }
