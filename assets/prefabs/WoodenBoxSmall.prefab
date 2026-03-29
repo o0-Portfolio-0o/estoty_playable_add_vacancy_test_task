@@ -196,7 +196,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 8
@@ -248,7 +248,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "f6cabb30-68bd-4450-b2d5-d841c1297aa3@f0b68",
+        "__uuid__": "a860e96d-9055-4701-b192-133a84a0db72",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -317,7 +317,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 13
@@ -369,7 +369,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "f6cabb30-68bd-4450-b2d5-d841c1297aa3@f0b68",
+        "__uuid__": "a860e96d-9055-4701-b192-133a84a0db72",
         "__expectedType__": "cc.Material"
       }
     ],

@@ -29,9 +29,13 @@
       }
     ],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 19
+      }
+    ],
     "_prefab": {
-      "__id__": 19
+      "__id__": 21
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -192,7 +196,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 8
@@ -313,7 +317,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 13
@@ -461,6 +465,40 @@
     "instance": null,
     "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
+  },
+  {
+    "__type__": "8c3d30a51NMjKgft2Y7zBcG",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 20
+    },
+    "hitParticlePrefab": {
+      "__uuid__": "7a666097-2475-4bf0-8334-28430d7434b0",
+      "__expectedType__": "cc.Prefab"
+    },
+    "requiredWeaponLevel": 2,
+    "hitsToDestroy": 2,
+    "attackRange": 1.5,
+    "meshL1": {
+      "__id__": 2
+    },
+    "meshL2": {
+      "__id__": 7
+    },
+    "meshL3": {
+      "__id__": 12
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "1269L9/IRGnbjLFn8rY45y"
   },
   {
     "__type__": "cc.PrefabInfo",
