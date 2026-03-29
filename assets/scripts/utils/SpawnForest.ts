@@ -8,7 +8,7 @@ export class SpawnForest extends Component {
     public prefabs: Prefab[] = [];
 
     @property
-    public mapSize: number = 10;
+    public mapSize: number = 20;
 
     @property
     public spacing: number = 2;

@@ -137,8 +137,8 @@
     "_far": 1000,
     "_color": {
       "__type__": "cc.Color",
-      "r": 16,
-      "g": 104,
+      "r": 19,
+      "g": 122,
       "b": 0,
       "a": 255
     },
@@ -178,8 +178,8 @@
       "__id__": 5
     },
     "offsetX": 0,
-    "offsetY": 60,
-    "offsetZ": 60,
+    "offsetY": 10,
+    "offsetZ": 10,
     "smoothSpeed": 5,
     "_id": "2fQXVu57FBbKie1KZwe1Hv"
   },
@@ -4218,6 +4218,7 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "mapBound": 23,
     "moveSpeed": 5,
     "camera": {
       "__id__": 3
@@ -4664,7 +4665,7 @@
         "__expectedType__": "cc.Prefab"
       }
     ],
-    "mapSize": 20,
+    "mapSize": 25,
     "spacing": 1,
     "randomOffset": 0.5,
     "_id": "c8O25o3ThPH7xg6sx1jZ+x"

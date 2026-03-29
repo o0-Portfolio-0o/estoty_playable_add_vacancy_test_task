@@ -6,6 +6,9 @@ const { ccclass, property } = _decorator;
 @ccclass('PlayerController')
 export class PlayerController extends Component {
     @property
+    public mapBound: number = 20;
+
+    @property
     public moveSpeed: number = 5;
 
     @property(Camera)
@@ -74,6 +77,11 @@ export class PlayerController extends Component {
             currentPosition.y,
             currentPosition.z + movement.z
         );
+
+        const clampedPos = this.node.worldPosition.clone();
+        clampedPos.x = Math.max(-this.mapBound, Math.min(this.mapBound, clampedPos.x));
+        clampedPos.z = Math.max(-this.mapBound, Math.min(this.mapBound, clampedPos.z));
+        this.node.worldPosition = clampedPos;
 
         this.animator?.playAnimation(AnimationState.RUN);
     }
