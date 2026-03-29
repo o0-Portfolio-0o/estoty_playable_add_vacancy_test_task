@@ -27,7 +27,8 @@ export class ObjectivePanel extends Component {
 
         this._setFaded(this.benchIcon);
         this._setFaded(this.weaponIconL2);
-        this._setFaded(this.gateIcon);
+        this.gateIcon.node.setScale(1, 1, 1);
+        this.gateIcon.color = new Color(255, 0, 0, this.FULL_ALPHA);
         this.weaponIconL3.node.active = false;
     }
 
@@ -61,6 +62,7 @@ export class ObjectivePanel extends Component {
             this.weaponIconL3.node.active = false;
             this.benchIcon.node.active = false;
             this._pulseToFull(this.gateIcon);
+            this.gateIcon.color = new Color(0, 255, 0, this.FULL_ALPHA);
         }
     }
 
