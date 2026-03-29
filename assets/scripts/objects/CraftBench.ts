@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3 } from 'cc';
+import { _decorator, Component, Node, Vec3, find } from 'cc';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { ResourceManager } from '../managers/ResourceManager';
 import { PlayerController } from '../player/PlayerController';
@@ -19,6 +19,8 @@ export class CraftBench extends Component {
 
 
     onLoad() {
+        this.player = find('GameRoot/IdBr_character');
+        console.log('Craft bench player: ', this.player);
         if (this.player) {
             this._playerController = this.player.getComponent(PlayerController);
         }
