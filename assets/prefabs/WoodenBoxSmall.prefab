@@ -445,7 +445,7 @@
       "__uuid__": "7a666097-2475-4bf0-8334-28430d7434b0",
       "__expectedType__": "cc.Prefab"
     },
-    "requiredWeaponLevel": 2,
+    "requiredWeaponLevel": 1,
     "hitsToDestroy": 3,
     "attackRange": 1.5,
     "meshL1": {

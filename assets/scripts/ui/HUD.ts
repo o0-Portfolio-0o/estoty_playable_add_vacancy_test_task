@@ -22,6 +22,12 @@ export class HUD extends Component {
     @property(Node)
     public upgradeModal: Node = null;
 
+    @property(Node)
+    public weaponModalL2: Node = null;
+
+    @property(Node)
+    public weaponModalL3: Node = null;
+
     @property(CraftBench)
     public craftBench: CraftBench = null;
 
@@ -107,7 +113,13 @@ export class HUD extends Component {
     }
 
     private _showUpgradeModal() {
-        if  (this.upgradeModal) this.upgradeModal.active = true;
+        if  (this.upgradeModal){
+            this.upgradeModal.active = true;
+            const weaponLevel = GameManager.instance?.weaponLevel + 1;
+            if (weaponLevel > 2) this.weaponModalL2.active = false;
+            this[`weaponModalL${weaponLevel}`].active = true;
+        }
+
     }
 }
 
