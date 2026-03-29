@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Label } from 'cc';
+import { _decorator, Component, Node, Label, Tween, tween, Vec3 } from 'cc';
 import { ResourceManager } from '../managers/ResourceManager';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { CraftBench } from '../objects/CraftBench';
@@ -9,7 +9,16 @@ export class HUD extends Component {
 
     @property(Label)
     public resourceLabel: Label = null;
- 
+
+    @property(Label)
+    public currentCountLabel: Label = null;
+
+    @property(Label)
+    public separatorLabel: Label = null;
+
+    @property(Label)
+    public totalCountLabel: Label = null;
+
     @property(Node)
     public upgradeModal: Node = null;
 
@@ -54,12 +63,47 @@ export class HUD extends Component {
         const weaponLevel = GameManager.instance?.weaponLevel;
 
         if (weaponLevel === WeaponLevel.L1) {
-            this.resourceLabel.string = `Wood: ${rm.resource1} / ${rm.resource1Required}`;
+            this.resourceLabel.string = 'WOOD:';
+            this.currentCountLabel.string = `${rm.resource1}`;
+            this.separatorLabel.string = '/';
+            this.totalCountLabel.string = `${rm.resource1Required}`;
         } else if (weaponLevel === WeaponLevel.L2) {
-            this.resourceLabel.string = `Scrap: ${rm.resource2} / ${rm.resource2Required}`;
+            this.resourceLabel.string = 'SCRAP:';
+            this.currentCountLabel.string = `${rm.resource2}`;
+            this.separatorLabel.string = '/';
+            this.totalCountLabel.string = `${rm.resource2Required}`;
         } else {
-            this.resourceLabel.string = 'Weapon MAX';
+            this.resourceLabel.string = 'WEAPON MAX';
+            this.currentCountLabel.string = "";
+            this.separatorLabel.string = "";
+            this.totalCountLabel.string = "";
         }
+
+        // this._popAnim(this.currentCountLabel);
+        const shouldPopAllLabels =
+            rm.resource1 === rm.resource1Required ||
+            rm.resource2 === rm.resource2Required ||
+            rm.resource2 === 0 && weaponLevel === WeaponLevel.L2;
+
+        if (shouldPopAllLabels) {
+            const scaleIntensity = new Vec3(1.1, 1.1, 1.1);
+            this._popAnim(this.resourceLabel, scaleIntensity);
+            this._popAnim(this.currentCountLabel, scaleIntensity);
+            this._popAnim(this.separatorLabel, scaleIntensity);
+            this._popAnim(this.totalCountLabel, scaleIntensity);
+        } else {
+            const scaleIntensity = new Vec3(1.4, 1.4, 1.4);
+            this._popAnim(this.currentCountLabel, scaleIntensity);
+        }
+    }
+
+    private _popAnim(label: Label, scale: Vec3) {
+        if (!label) return;
+        Tween.stopAllByTarget(label.node);
+        tween(label.node)
+            .to(0.1, {scale})
+            .to(0.1, {scale: new Vec3(1, 1, 1)})
+            .start();
     }
 
     private _showUpgradeModal() {
