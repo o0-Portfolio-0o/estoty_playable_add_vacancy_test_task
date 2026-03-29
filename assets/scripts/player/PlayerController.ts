@@ -1,5 +1,6 @@
 import { _decorator, Camera, Component, EventTouch, geometry, Input, input, Vec3 } from 'cc';
 import { PlayerAnimator, AnimationState } from './PlayerAnimator';
+import { Obstacle } from '../utils/Obstacle';
 
 const { ccclass, property } = _decorator;
 
@@ -72,11 +73,15 @@ export class PlayerController extends Component {
             direction.z * this.moveSpeed * deltaTime
         );
 
-        this.node.worldPosition = new Vec3(
+        const newPos = new Vec3(
             currentPosition.x + movement.x,
             currentPosition.y,
             currentPosition.z + movement.z
         );
+
+        if (!this._isPositionBlocked(newPos)) {
+            this.node.worldPosition = newPos;
+        }
 
         const clampedPos = this.node.worldPosition.clone();
         clampedPos.x = Math.max(-this.mapBound, Math.min(this.mapBound, clampedPos.x));
@@ -102,6 +107,15 @@ export class PlayerController extends Component {
             0,
             ray.o.z + ray.d.z * t
         );
+    }
+
+    private _isPositionBlocked(newPos: Vec3): boolean {
+        for (const obstacle of Obstacle.all) {
+            if (!obstacle.node.active) continue;
+            const dist = Vec3.distance(newPos, obstacle.node.worldPosition);
+            if (dist < 1.2) return true;
+        }
+        return false;
     }
 
     private _onTouchStart(event: EventTouch) {

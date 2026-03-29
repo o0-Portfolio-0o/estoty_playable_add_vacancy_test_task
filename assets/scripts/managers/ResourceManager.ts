@@ -10,10 +10,15 @@ export class ResourceManager extends Component {
         return ResourceManager._instance;
     }
 
-    public resource1: number = 0;
+
+    @property
     public resource1Required: number = 5;
-    public resource2: number = 0;
+
+    @property
     public resource2Required: number = 5;
+
+    public resource1: number = 0;
+    public resource2: number = 0;
 
     onLoad() {
         ResourceManager._instance = this;

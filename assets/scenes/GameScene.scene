@@ -6105,9 +6105,9 @@
     ],
     "value": {
       "__type__": "cc.Vec3",
-      "x": 13.372,
+      "x": 13.614,
       "y": 0,
-      "z": -11.409
+      "z": -11.209
     }
   },
   {
@@ -6234,9 +6234,9 @@
     ],
     "value": {
       "__type__": "cc.Vec3",
-      "x": 12.501,
+      "x": 12.755,
       "y": 0,
-      "z": -13.357
+      "z": -12.98
     }
   },
   {
@@ -6363,9 +6363,9 @@
     ],
     "value": {
       "__type__": "cc.Vec3",
-      "x": 12.469,
+      "x": 12.723,
       "y": 0,
-      "z": -15.586
+      "z": -15.209
     }
   },
   {
@@ -6492,9 +6492,9 @@
     ],
     "value": {
       "__type__": "cc.Vec3",
-      "x": 12.438,
+      "x": 12.692,
       "y": 0,
-      "z": -17.736
+      "z": -17.359
     }
   },
   {
@@ -6621,9 +6621,9 @@
     ],
     "value": {
       "__type__": "cc.Vec3",
-      "x": 12.407,
+      "x": 12.661,
       "y": 0,
-      "z": -19.879
+      "z": -19.502
     }
   },
   {
@@ -6750,9 +6750,9 @@
     ],
     "value": {
       "__type__": "cc.Vec3",
-      "x": 12.376,
+      "x": 12.63,
       "y": 0,
-      "z": -21.986
+      "z": -21.609
     }
   },
   {
@@ -6879,9 +6879,9 @@
     ],
     "value": {
       "__type__": "cc.Vec3",
-      "x": 12.35,
+      "x": 12.604,
       "y": 0,
-      "z": -23.745
+      "z": -23.368
     }
   },
   {
@@ -7969,6 +7969,8 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "resource1Required": 10,
+    "resource2Required": 15,
     "_id": "e0lu7nyTBJkpPBwHB4wrUU"
   },
   {
@@ -8126,7 +8128,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 360,
+    "_orthoHeight": 417.5238095238095,
     "_near": 1,
     "_far": 2000,
     "_color": {
@@ -8270,8 +8272,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 145.26658505652435,
-      "height": 50.400000000000006
+      "width": 145.28125,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -8303,7 +8305,7 @@
     "_string": "Wood: 0/5",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 44.044444444444444,
+    "_actualFontSize": 32,
     "_fontSize": 32,
     "_fontFamily": "Arial",
     "_lineHeight": 40,
