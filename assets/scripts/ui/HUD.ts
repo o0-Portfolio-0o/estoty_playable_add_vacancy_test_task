@@ -81,7 +81,7 @@ export class HUD extends Component {
             this.separatorLabel.string = '/';
             this.totalCountLabel.string = `${rm.resource2Required}`;
         } else {
-            this.resourceLabel.string = 'WEAPON MAX';
+            this.resourceLabel.string = '';
             this.currentCountLabel.string = "";
             this.separatorLabel.string = "";
             this.totalCountLabel.string = "";
