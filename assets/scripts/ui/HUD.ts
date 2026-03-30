@@ -2,6 +2,7 @@ import { _decorator, Component, Node, Label, Tween, tween, Vec3 } from 'cc';
 import { ResourceManager } from '../managers/ResourceManager';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { CraftBench } from '../objects/CraftBench';
+import { AudioManager } from '../managers/AudioManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('HUD')
@@ -51,6 +52,7 @@ export class HUD extends Component {
 
     public onUpgradeButtonClicked() {
         this.craftBench?.onUpgradeConfirmed();
+        AudioManager.instance?.playClick();
         if (this.upgradeModal) this.upgradeModal.active = false;
         this._updateResourceLabel();
     }
@@ -114,6 +116,7 @@ export class HUD extends Component {
 
     private _showUpgradeModal() {
         if  (this.upgradeModal){
+            AudioManager.instance?.openMenu();
             this.upgradeModal.active = true;
             const weaponLevel = GameManager.instance?.weaponLevel + 1;
             if (weaponLevel > 2) this.weaponModalL2.active = false;

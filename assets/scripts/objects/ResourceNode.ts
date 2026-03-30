@@ -2,6 +2,8 @@ import { _decorator, Component, Game, Node, Vec3, find, tween, instantiate, Part
 import { ResourceManager } from '../managers/ResourceManager';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { PlayerController } from '../player/PlayerController';
+import { AudioManager } from '../managers/AudioManager';
+
 const { ccclass, property } = _decorator;
 
 @ccclass('ResourceNode')
@@ -129,6 +131,7 @@ export class ResourceNode extends Component {
             ) })
             .to(0.08, { scale: originalScale })
             .start();
+        AudioManager.instance?.playHit();
         this._spawnParticles();
     }
 

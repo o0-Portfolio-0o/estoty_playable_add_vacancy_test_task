@@ -1,5 +1,6 @@
 import { _decorator, Component, Node } from 'cc';
 import { GameManager, GameState } from '../managers/GameManager';
+import { AudioManager } from '../managers/AudioManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('StartScreen')
@@ -21,6 +22,7 @@ export class StartScreen extends Component {
         this.node.active = false;
         if (this.hud) this.hud.active = true;
         if (this.objectiveArrow) this.objectiveArrow.active = true;
+        AudioManager.instance?.playClick();
         GameManager.instance?.startGame();
     }
 }

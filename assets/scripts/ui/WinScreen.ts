@@ -1,5 +1,6 @@
 import { _decorator, Component, Node } from 'cc';
 import { GameManager } from '../managers/GameManager';
+import { AudioManager } from '../managers/AudioManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('WinScreen')
@@ -17,6 +18,7 @@ export class WinScreen extends Component {
     }
 
     public onPlayNowClicked() {
+        AudioManager.instance?.playClick();
         this._triggerMRAID();
     }
 
