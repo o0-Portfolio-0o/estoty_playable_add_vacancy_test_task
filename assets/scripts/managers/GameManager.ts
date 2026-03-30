@@ -29,6 +29,15 @@ export class GameManager extends Component {
         GameManager._instance = this;
     }
 
+    public setIdle() {
+        this.state = GameState.IDLE;
+    }
+
+    public startGame() {
+        this.state = GameState.PLAYING;
+        this.node.emit('game-started');
+    }
+
     public upgradeWeapon() {
         if (this.weaponLevel < WeaponLevel.L3) {
             this.weaponLevel++;
@@ -46,6 +55,10 @@ export class GameManager extends Component {
         this.state = GameState.PLAYING;
         this.weaponLevel = WeaponLevel.L1;
         this.node.emit('game-reset');
+    }
+
+    onDestroy(): void {
+        GameManager._instance = null;
     }
 }
 

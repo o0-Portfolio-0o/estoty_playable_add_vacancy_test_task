@@ -1,6 +1,7 @@
 import { _decorator, Camera, Component, EventTouch, geometry, Input, input, Vec3 } from 'cc';
 import { PlayerAnimator, AnimationState } from './PlayerAnimator';
 import { Obstacle } from '../utils/Obstacle';
+import { GameManager, GameState } from '../managers/GameManager';
 
 const { ccclass, property } = _decorator;
 
@@ -32,9 +33,9 @@ export class PlayerController extends Component {
     }
 
     onDestroy() {
-        input.off(Input.EventType.TOUCH_START, this._onTouchStart, this);
-        input.off(Input.EventType.TOUCH_MOVE, this._onTouchMove, this);
-        input.off(Input.EventType.TOUCH_END, this._onTouchEnd, this);
+        input?.off(Input.EventType.TOUCH_START, this._onTouchStart, this);
+        input?.off(Input.EventType.TOUCH_MOVE, this._onTouchMove, this);
+        input?.off(Input.EventType.TOUCH_END, this._onTouchEnd, this);
     }
 
     update(deltaTime: number) {
@@ -109,6 +110,10 @@ export class PlayerController extends Component {
         );
     }
 
+    private _isGamePlaying() {
+        return GameManager.instance?.state === GameState.PLAYING;
+    }
+
     private _isPositionBlocked(newPos: Vec3): boolean {
         for (const obstacle of Obstacle.all) {
             if (!obstacle.node.active) continue;
@@ -119,6 +124,8 @@ export class PlayerController extends Component {
     }
 
     private _onTouchStart(event: EventTouch) {
+        if (!this._isGamePlaying()) return;
+
         const worldPos = this.getWorldPositionFromTouch(event);
         if (!worldPos) return;
         this.targetPosition.set(worldPos);
@@ -126,7 +133,7 @@ export class PlayerController extends Component {
     }
 
     private _onTouchMove(event: EventTouch) {
-        if (!this.isMoving) return;
+        if (!this.isMoving && !this._isGamePlaying()) return;
         const worldPos = this.getWorldPositionFromTouch(event);
         if (!worldPos) return;
         this.targetPosition.set(worldPos);

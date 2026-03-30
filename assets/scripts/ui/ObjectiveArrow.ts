@@ -83,9 +83,9 @@ export class ObjectiveArrow extends Component {
     }
 
     onDestroy() {
-        ResourceManager.instance?.node.off('resource-changed', this._onResourceChanged, this);
-        GameManager.instance?.node.off('weapon-upgraded', this._onWeaponUpgraded, this);
-        GameManager.instance?.node.off('game-win', this._stopPulseAnim, this);
+        ResourceManager.instance?.node?.off('resource-changed', this._onResourceChanged, this);
+        GameManager.instance?.node?.off('weapon-upgraded', this._onWeaponUpgraded, this);
+        GameManager.instance?.node?.off('game-win', this._stopPulseAnim, this);
         Tween.stopAllByTarget(this.arrowNode);
     }
 

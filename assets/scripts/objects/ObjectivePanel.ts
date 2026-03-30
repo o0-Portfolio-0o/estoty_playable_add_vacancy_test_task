@@ -33,8 +33,13 @@ export class ObjectivePanel extends Component {
     }
 
     onDestroy(): void {
-        ResourceManager.instance?.node.off('resource-changed', this._onResourceChanged, this);
-        GameManager.instance?.node.off('weapon-upgraded', this._onWeaponUpgrade, this);
+        ResourceManager.instance?.node?.off('resource-changed', this._onResourceChanged, this);
+        GameManager.instance?.node?.off('weapon-upgraded', this._onWeaponUpgrade, this);
+
+        if (this.benchIcon) Tween.stopAllByTarget(this.benchIcon.node);
+        if (this.weaponIconL2) Tween.stopAllByTarget(this.weaponIconL2.node);
+        if (this.weaponIconL3) Tween.stopAllByTarget(this.weaponIconL3.node);
+        if (this.gateIcon) Tween.stopAllByTarget(this.gateIcon.node);
     }
 
     private _onResourceChanged() {

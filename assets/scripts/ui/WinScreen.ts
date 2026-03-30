@@ -13,7 +13,7 @@ export class WinScreen extends Component {
     }
 
     onDestroy(): void {
-        GameManager.instance?.node.off('game-win', this._onGameWin, this);
+        GameManager.instance?.node?.off('game-win', this._onGameWin, this);
     }
 
     public onPlayNowClicked() {

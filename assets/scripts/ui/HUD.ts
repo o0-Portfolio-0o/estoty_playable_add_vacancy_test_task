@@ -44,9 +44,9 @@ export class HUD extends Component {
     }
 
     onDestroy(): void {
-        ResourceManager.instance?.node.off('resource-changed', this._updateResourceLabel, this);
+        ResourceManager.instance?.node?.off('resource-changed', this._updateResourceLabel, this);
 
-        this.craftBench?.node.off('show-upgrade-modal', this._showUpgradeModal, this);
+        this.craftBench?.node?.off('show-upgrade-modal', this._showUpgradeModal, this);
     }
 
     public onUpgradeButtonClicked() {

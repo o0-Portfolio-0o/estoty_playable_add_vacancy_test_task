@@ -22,7 +22,7 @@ export class WeaponController extends Component {
 
 
     onDestroy(): void {
-        GameManager.instance?.node.off('weapon-upgraded', this._onWeaponUpgraded, this);
+        GameManager.instance?.node?.off('weapon-upgraded', this._onWeaponUpgraded, this);
     }
 
     private _onWeaponUpgraded(level: WeaponLevel) {
