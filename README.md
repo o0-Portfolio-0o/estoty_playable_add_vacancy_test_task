@@ -24,7 +24,7 @@ https://luxury-cendol-2742c1.netlify.app/
 - [ ] Add simple objective text updates in the center of the screen (e.g., "Gather scrap" -> "Upgrade weapon").
 - [ ] Show a red "UPGRADE NEEDED" pop-up when hitting advanced boxes with a level 1 weapon.
 - [ ] Replace the word "WOOD" in the UI with a wood log sprite and move the resource counter to the top right.
-- [ ] Remove the unnecessary gate icon UI from the top right.
+- [x] Remove the unnecessary gate icon UI from the top right.
 
 ## Interaction, VFX & Audio
 - [ ] Speed up the box-breaking animations and object decay times.

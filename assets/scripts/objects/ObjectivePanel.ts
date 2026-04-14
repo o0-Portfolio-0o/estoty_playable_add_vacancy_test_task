@@ -15,9 +15,6 @@ export class ObjectivePanel extends Component {
     @property(Sprite)
     public weaponIconL3: Sprite = null;
 
-    @property(Sprite)
-    public gateIcon: Sprite = null;
-
     private readonly FADED_ALPHA = 100;
     private readonly FULL_ALPHA = 255;
 
@@ -27,8 +24,6 @@ export class ObjectivePanel extends Component {
 
         this._setFaded(this.benchIcon);
         this._setFaded(this.weaponIconL2);
-        this.gateIcon.node.setScale(1, 1, 1);
-        this.gateIcon.color = new Color(255, 0, 0, this.FULL_ALPHA);
         this.weaponIconL3.node.active = false;
     }
 
@@ -39,7 +34,6 @@ export class ObjectivePanel extends Component {
         if (this.benchIcon) Tween.stopAllByTarget(this.benchIcon.node);
         if (this.weaponIconL2) Tween.stopAllByTarget(this.weaponIconL2.node);
         if (this.weaponIconL3) Tween.stopAllByTarget(this.weaponIconL3.node);
-        if (this.gateIcon) Tween.stopAllByTarget(this.gateIcon.node);
     }
 
     private _onResourceChanged() {
@@ -66,8 +60,6 @@ export class ObjectivePanel extends Component {
         } else if (level === WeaponLevel.L3) {
             this.weaponIconL3.node.active = false;
             this.benchIcon.node.active = false;
-            this._pulseToFull(this.gateIcon);
-            this.gateIcon.color = new Color(0, 255, 0, this.FULL_ALPHA);
         }
     }
 
