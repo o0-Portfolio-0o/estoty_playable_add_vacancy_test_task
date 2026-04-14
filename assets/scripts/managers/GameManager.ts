@@ -51,6 +51,10 @@ export class GameManager extends Component {
         this.node.emit('game-win');
     }
 
+    public resume(): void {
+        this.state = GameState.PLAYING;
+    }
+
     public reset() {
         this.state = GameState.PLAYING;
         this.weaponLevel = WeaponLevel.L1;

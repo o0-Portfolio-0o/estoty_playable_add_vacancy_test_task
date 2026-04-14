@@ -1,3 +1,4 @@
+- Before making any changes, show me the exact code diff (before and after) and wait for my explicit approval.
 # Project Overview
 Playable ad built in Cocos Creator 3.8.6 (TypeScript)
 Top-down 3D resource collection game with drag-to-move controls.
