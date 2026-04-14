@@ -3,7 +3,7 @@ https://luxury-cendol-2742c1.netlify.app/
 # Playable Ad – Feedback Checklist
 
 ## Controls & Movement
-- [ ] Fix character movement bug: running currently glitches and stops randomly. Needs to be completely smooth.
+- [x] Fix character movement bug: running currently glitches and stops randomly. Needs to be completely smooth.
 
 ## Camera & Guidance
 - [ ] Clarify the overall goal (upgrading to escape) early on.

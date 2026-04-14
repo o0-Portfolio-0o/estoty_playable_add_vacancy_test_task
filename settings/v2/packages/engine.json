@@ -104,7 +104,7 @@
             "_value": true
           },
           "profiler": {
-            "_value": false
+            "_value": true
           },
           "occlusion-query": {
             "_value": false
@@ -205,6 +205,7 @@
           "particle",
           "physics-ammo",
           "primitive",
+          "profiler",
           "rich-text",
           "skeletal-animation",
           "tween",

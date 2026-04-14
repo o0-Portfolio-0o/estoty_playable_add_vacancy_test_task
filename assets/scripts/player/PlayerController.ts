@@ -25,23 +25,37 @@ export class PlayerController extends Component {
     private isMoving: boolean = false;
     private readonly STOP_DISTANCE: number = 0.1;
 
+    private _isTouchActive: boolean = false;
+    private _lastScreenX: number = 0;
+    private _lastScreenY: number = 0;
+
     onLoad() {
         this.targetPosition.set(this.node.worldPosition);
         input.on(Input.EventType.TOUCH_START, this._onTouchStart, this);
         input.on(Input.EventType.TOUCH_MOVE, this._onTouchMove, this);
         input.on(Input.EventType.TOUCH_END, this._onTouchEnd, this);
+        input.on(Input.EventType.TOUCH_CANCEL, this._onTouchEnd, this);
     }
 
     onDestroy() {
         input?.off(Input.EventType.TOUCH_START, this._onTouchStart, this);
         input?.off(Input.EventType.TOUCH_MOVE, this._onTouchMove, this);
         input?.off(Input.EventType.TOUCH_END, this._onTouchEnd, this);
+        input?.off(Input.EventType.TOUCH_CANCEL, this._onTouchEnd, this);
     }
 
     update(deltaTime: number) {
         if (this.isAttacking) {
             this.animator?.playAnimation(AnimationState.AXE);
             return;
+        }
+
+        if (this._isTouchActive) {
+            const worldPos = this._screenToWorld(this._lastScreenX, this._lastScreenY);
+            if (worldPos) {
+                this.targetPosition.set(worldPos);
+                this.isMoving = true;
+            }
         }
 
         if (!this.isMoving) {
@@ -57,9 +71,9 @@ export class PlayerController extends Component {
         const distance = direction.length();
 
         if (distance < this.STOP_DISTANCE) {
-            this.isMoving = false;
-            if (!this.isAttacking) {
-                this.animator?.playAnimation(AnimationState.IDLE)
+            if (!this._isTouchActive) {
+                this.isMoving = false;
+                this.animator?.playAnimation(AnimationState.IDLE);
             }
             return;
         }
@@ -92,17 +106,12 @@ export class PlayerController extends Component {
         this.animator?.playAnimation(AnimationState.RUN);
     }
 
-    private getWorldPositionFromTouch(event: EventTouch):Vec3 | null {
+    private _screenToWorld(screenX: number, screenY: number): Vec3 | null {
         if (!this.camera) return null;
-
-        const touchPos = event.getLocation();
         const ray = new geometry.Ray();
-        this.camera.screenPointToRay(touchPos.x, touchPos.y, ray);
-
-        // Find where ray hits Y = 0 plane (the ground)
+        this.camera.screenPointToRay(screenX, screenY, ray);
         const t = -ray.o.y / ray.d.y;
         if (t < 0) return null;
-
         return new Vec3(
             ray.o.x + ray.d.x * t,
             0,
@@ -125,23 +134,26 @@ export class PlayerController extends Component {
 
     private _onTouchStart(event: EventTouch) {
         if (!this._isGamePlaying()) return;
+        const touchPos = event.getLocation();
+        this._lastScreenX = touchPos.x;
+        this._lastScreenY = touchPos.y;
+        this._isTouchActive = true;
 
-        const worldPos = this.getWorldPositionFromTouch(event);
+        const worldPos = this._screenToWorld(touchPos.x, touchPos.y);
         if (!worldPos) return;
         this.targetPosition.set(worldPos);
         this.isMoving = true;
     }
 
     private _onTouchMove(event: EventTouch) {
-        if (!this.isMoving && !this._isGamePlaying()) return;
-        const worldPos = this.getWorldPositionFromTouch(event);
-        if (!worldPos) return;
-        this.targetPosition.set(worldPos);
+        if (!this._isGamePlaying()) return;
+        const touchPos = event.getLocation();
+        this._lastScreenX = touchPos.x;
+        this._lastScreenY = touchPos.y;
     }
 
     private _onTouchEnd() {
+        this._isTouchActive = false;
         this.isMoving = false;
     }
 }
-
-
