@@ -13,10 +13,11 @@ https://luxury-cendol-2742c1.netlify.app/
 - [ ] **Bonus:** Add a striped hazard zone under breakables to highlight areas that need clearing.
 
 ## Level Design & Environment
-- [ ] Shrink the overall map size to reduce empty running space and increase action pacing.
-- [ ] Group breakables into piles (e.g., blocking the fence exit, then blocking the next area after upgrading) instead of scattering them aimlessly.
-- [ ] Replace the lvl 2 boxes blocking the fence exit with a locked gate.
-- [ ] Add a visual drop zone next to the upgrade station for depositing scrap.
+- [x] Shrink the overall map size to reduce empty running space and increase action pacing.
+- [x] Group breakables into piles (e.g., blocking the fence exit, then blocking the next area after upgrading) instead of scattering them aimlessly.
+- [x] Replace the lvl 2 boxes blocking the fence exit with a locked gate.
+- [x] Add a visual drop zone next to the upgrade station for depositing scrap.
+  - [ ] Add functionality for the drop zone
 - [ ] Grey out the area outside the starting fence to visually indicate it is locked.
 - [ ] Add a minimal ground texture so the character feels anchored to the environment.
 
