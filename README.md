@@ -19,7 +19,7 @@ https://luxury-cendol-2742c1.netlify.app/
 - [x] Add a visual drop zone next to the upgrade station for depositing scrap.
   - [ ] Add functionality for the drop zone
 - [ ] Grey out the area outside the starting fence to visually indicate it is locked.
-- [ ] Add a minimal ground texture so the character feels anchored to the environment.
+- [x] Add a minimal ground texture so the character feels anchored to the environment.
 
 ## User Interface (UI)
 - [ ] Add simple objective text updates in the center of the screen (e.g., "Gather scrap" -> "Upgrade weapon").
