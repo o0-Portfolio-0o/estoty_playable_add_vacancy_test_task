@@ -1,10 +1,12 @@
-import { _decorator, Component, Sprite, Node, Color, tween, Tween, Vec3, sp } from 'cc';
+import { _decorator, Component, Sprite, Node, Label, Color, tween, Tween, Vec3, sp } from 'cc';
 const { ccclass, property } = _decorator;
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { ResourceManager } from '../managers/ResourceManager';
 
 @ccclass('ObjectivePanel')
 export class ObjectivePanel extends Component {
+    @property([Label])
+    public weaponLevelLabels: Label[] = []
 
     @property(Sprite)
     public benchIcon: Sprite = null;
@@ -55,11 +57,13 @@ export class ObjectivePanel extends Component {
         if (level === WeaponLevel.L2) {
             this.weaponIconL2.node.active = false;
             this.weaponIconL3.node.active = true;
+            this.weaponLevelLabels[0].string = '2';
             this._setFaded(this.benchIcon);
             this._setFaded(this.weaponIconL3);
         } else if (level === WeaponLevel.L3) {
             this.weaponIconL3.node.active = false;
             this.benchIcon.node.active = false;
+            this.weaponLevelLabels[0].string = '3';
         }
     }
 
