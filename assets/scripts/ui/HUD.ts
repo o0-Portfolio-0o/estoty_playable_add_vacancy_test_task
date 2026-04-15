@@ -8,8 +8,8 @@ const { ccclass, property } = _decorator;
 @ccclass('HUD')
 export class HUD extends Component {
 
-    @property(Label)
-    public resourceLabel: Label = null;
+    @property([Node])
+    public resourceLabels: Node[] = [];
 
     @property(Label)
     public currentCountLabel: Label = null;
@@ -62,7 +62,7 @@ export class HUD extends Component {
     }
 
     private _updateResourceLabel() {
-        if (!this.resourceLabel) return;
+        if (!this.resourceLabels.length) return;
 
         const rm = ResourceManager.instance;
 
@@ -71,17 +71,18 @@ export class HUD extends Component {
         const weaponLevel = GameManager.instance?.weaponLevel;
 
         if (weaponLevel === WeaponLevel.L1) {
-            this.resourceLabel.string = 'WOOD:';
+            this.resourceLabels[0].active = true;
             this.currentCountLabel.string = `${rm.resource1}`;
             this.separatorLabel.string = '/';
             this.totalCountLabel.string = `${rm.resource1Required}`;
         } else if (weaponLevel === WeaponLevel.L2) {
-            this.resourceLabel.string = 'SCRAP:';
+            this.resourceLabels[0].active = false;
+            this.resourceLabels[1].active = true;
             this.currentCountLabel.string = `${rm.resource2}`;
             this.separatorLabel.string = '/';
             this.totalCountLabel.string = `${rm.resource2Required}`;
         } else {
-            this.resourceLabel.string = '';
+            this.resourceLabels[1].active = false;
             this.currentCountLabel.string = "";
             this.separatorLabel.string = "";
             this.totalCountLabel.string = "";
