@@ -18,7 +18,7 @@ https://luxury-cendol-2742c1.netlify.app/
 - [x] Replace the lvl 2 boxes blocking the fence exit with a locked gate.
 - [x] Add a visual drop zone next to the upgrade station for depositing scrap.
   - [ ] Add functionality for the drop zone
-- [ ] Grey out the area outside the starting fence to visually indicate it is locked.
+- [x] Grey out the area outside the starting fence to visually indicate it is locked.
 - [x] Add a minimal ground texture so the character feels anchored to the environment.
 
 ## User Interface (UI)
