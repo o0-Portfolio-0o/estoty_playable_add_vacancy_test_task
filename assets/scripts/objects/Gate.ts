@@ -17,7 +17,7 @@ export class Gate extends ResourceNode {
             .to(0.5, {scale: new Vec3(1, 0.1, 1)})
             .call(() => {
                 this.node.active = false;
-                GameManager.instance?.triggerWin();
+                // GameManager.instance?.triggerWin();
             })
             .start();
     }

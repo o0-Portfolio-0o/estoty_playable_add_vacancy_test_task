@@ -30,7 +30,7 @@ https://luxury-cendol-2742c1.netlify.app/
 ## Interaction, VFX & Audio
 - [ ] Speed up the box-breaking animations and object decay times.
 - [ ] Sync box decay and destruction perfectly with the actual weapon hit.
-- [ ] Add a white blink or outline to boxes so players know they can interact with them.
+- [x] Add a white blink or outline to boxes so players know they can interact with them.
 - [ ] Sync the hit sound effects to perfectly match the breaking animation to remove the current audio delay.
 - [ ] Add visual effects (VFX) triggered by the weapon upgrade.
 - [ ] Add background music.

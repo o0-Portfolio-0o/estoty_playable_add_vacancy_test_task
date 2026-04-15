@@ -1,4 +1,4 @@
-import { _decorator, Component, Game, Node, Vec3, find, tween, instantiate, ParticleSystem, Prefab } from 'cc';
+import { _decorator, Component, Node, Vec3, find, tween, Tween, instantiate, ParticleSystem, Prefab, MeshRenderer, Material, Color } from 'cc';
 import { ResourceManager } from '../managers/ResourceManager';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { PlayerController } from '../player/PlayerController';
@@ -21,6 +21,9 @@ export class ResourceNode extends Component {
     @property
     public attackRange = 1.5;
 
+    @property
+    public blinkRange: number = 5;
+
     @property(Node)
     public meshL1: Node = null;
 
@@ -39,19 +42,40 @@ export class ResourceNode extends Component {
     protected _isDestroyed: boolean = false;
 
     private readonly ATTACK_INTERVAL = 1.0;
-    private _hitFeedbackTriggered:boolean = false;
+    private _hitFeedbackTriggered: boolean = false;
+
+    private _isPulsing: boolean = false;
+    private _wasInBlinkRange: boolean = false;
+
+    private static _outlineMaterial: Material | null = null;
+    private _outlineNodes: Map<Node, Node> = new Map();
 
     onLoad(): void {
-        this.player = find("GameRoot/IdBr_character")
+        this.player = find("GameRoot/IdBr_character");
         if (this.player) {
-
             this._playerController = this.player.getComponent(PlayerController);
         }
         this._updateMeshVisibility();
+        this._setupOutlines();
+        this._startPulse();
+    }
+
+    start(): void {
+        GameManager.instance?.node.on('weapon-upgraded', this._refreshOutlines, this);
+        this._refreshOutlines();
     }
 
     update(deltaTime: number) {
         if (this._isDestroyed) return;
+
+        const inRange = this._isInBlinkRange();
+        if (inRange && !this._wasInBlinkRange) {
+            this._wasInBlinkRange = true;
+            this._stopPulse();
+        } else if (!inRange && this._wasInBlinkRange) {
+            this._wasInBlinkRange = false;
+            if (this._canBeAttacked()) this._startPulse();
+        }
 
         if (!this._isPlayerInRange() || !this._canBeAttacked()) {
             if (this._isBeingAttacked) {
@@ -79,8 +103,9 @@ export class ResourceNode extends Component {
 
     protected _onDestroy() {
         this._isDestroyed = true;
-
+        this._stopPulse();
         this.unscheduleAllCallbacks();
+        GameManager.instance?.node?.off('weapon-upgraded', this._refreshOutlines, this);
 
         const weaponLevel = GameManager.instance?.weaponLevel ?? 1;
         if (weaponLevel === 1) {
@@ -97,6 +122,96 @@ export class ResourceNode extends Component {
         }, 0.3);
     }
 
+    private _startPulse(): void {
+        if (this._isDestroyed || this._isPulsing) return;
+        if (!this._canBeAttacked()) {
+            this.scheduleOnce(() => this._startPulse(), 0.5);
+            return;
+        }
+        if (this._isInBlinkRange()) return;
+
+        const mesh = this._getActiveMesh();
+        if (!mesh) return;
+
+        this._isPulsing = true;
+        Tween.stopAllByTarget(mesh);
+
+        tween(mesh)
+            .to(0.7, { scale: new Vec3(1.02, 1.02, 1.02) }, { easing: 'sineInOut' })
+            .to(0.7, { scale: new Vec3(1, 1, 1) }, { easing: 'sineInOut' })
+            .call(() => {
+                this._isPulsing = false;
+                if (!this._isDestroyed && !this._isInBlinkRange()) {
+                    this.scheduleOnce(() => this._startPulse(), 2.0);
+                }
+            })
+            .start();
+    }
+
+    private _stopPulse(): void {
+        if (!this._isPulsing) return;
+        const mesh = this._getActiveMesh();
+        if (mesh) {
+            Tween.stopAllByTarget(mesh);
+            mesh.setScale(1, 1, 1);
+        }
+        this._isPulsing = false;
+        this.unschedule(this._startPulse);
+    }
+
+    private _getActiveMesh(): Node | null {
+        if (this.meshL1?.active) return this.meshL1;
+        if (this.meshL2?.active) return this.meshL2;
+        if (this.meshL3?.active) return this.meshL3;
+        return null;
+    }
+
+    private static _getOutlineMaterial(): Material {
+        if (!ResourceNode._outlineMaterial) {
+            const mat = new Material();
+            mat.initialize({
+                effectName: 'builtin-unlit',
+                defines: [{ USE_INSTANCING: false }],
+                states: [{
+                    rasterizerState: { cullMode: 1 }, // CullMode.FRONT — shows back faces only
+                }],
+            });
+            mat.setProperty('mainColor', new Color(255, 255, 255, 255));
+            ResourceNode._outlineMaterial = mat;
+        }
+        return ResourceNode._outlineMaterial;
+    }
+
+    private _addOutlineToMesh(meshNode: Node): void {
+        const mr = meshNode.getComponent(MeshRenderer)
+            ?? meshNode.getComponentInChildren(MeshRenderer);
+        if (!mr || !mr.mesh) return;
+
+        const outlineNode = new Node('_outline');
+        mr.node.addChild(outlineNode);
+        outlineNode.setScale(1.12, 1.12, 1.12);
+
+        const outlineMR = outlineNode.addComponent(MeshRenderer);
+        outlineMR.mesh = mr.mesh;
+        outlineMR.setSharedMaterial(ResourceNode._getOutlineMaterial(), 0);
+
+        outlineNode.active = this._canBeAttacked();
+        this._outlineNodes.set(meshNode, outlineNode);
+    }
+
+    private _setupOutlines(): void {
+        for (const mesh of [this.meshL1, this.meshL2, this.meshL3]) {
+            if (mesh) this._addOutlineToMesh(mesh);
+        }
+    }
+
+    private _refreshOutlines(): void {
+        const canAttack = this._canBeAttacked();
+        for (const [, outline] of this._outlineNodes) {
+            outline.active = canAttack;
+        }
+    }
+
     private _spawnParticles() {
         if (!this.hitParticlePrefab) return;
 
@@ -110,12 +225,9 @@ export class ResourceNode extends Component {
         ));
 
         const particleSystem = particles.getComponent(ParticleSystem);
-
         if (particleSystem) particleSystem.play();
 
-        this.scheduleOnce(() => {
-            particles.destroy();
-        }, 1.0);
+        this.scheduleOnce(() => { particles.destroy(); }, 1.0);
     }
 
     private _playHitFeedback() {
@@ -156,23 +268,29 @@ export class ResourceNode extends Component {
         const [from, to] = transition;
         if (!from || !to) return;
 
+        Tween.stopAllByTarget(from);
+        this._isPulsing = false;
+
         tween(from)
             .to(0.08, { scale: new Vec3(0, 0, 0) })
             .call(() => {
                 from.active = false;
                 to.active = true;
+                if (!this._isInBlinkRange() && this._canBeAttacked()) {
+                    this.scheduleOnce(() => this._startPulse(), 0.3);
+                }
             })
             .start();
     }
 
+    private _isInBlinkRange(): boolean {
+        if (!this.player) return false;
+        return Vec3.distance(this.node.worldPosition, this.player.worldPosition) <= this.blinkRange;
+    }
+
     private _isPlayerInRange(): boolean {
         if (!this.player) return false;
-
-        const distance = Vec3.distance(
-            this.node.worldPosition,
-            this.player.worldPosition
-        );
-        return distance <= this.attackRange;
+        return Vec3.distance(this.node.worldPosition, this.player.worldPosition) <= this.attackRange;
     }
 
     private _canBeAttacked(): boolean {
@@ -194,5 +312,3 @@ export class ResourceNode extends Component {
         }, 0.8);
     }
 }
-
-
