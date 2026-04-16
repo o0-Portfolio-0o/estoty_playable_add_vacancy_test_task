@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Camera, Vec3, view, tween, Tween, find } from 'cc';
+import { _decorator, Component, Node, Camera, Vec3, view, screen, tween, Tween, find } from 'cc';
 import { GameManager, WeaponLevel } from '../managers/GameManager';
 import { ResourceManager } from '../managers/ResourceManager';
 const { ccclass, property } = _decorator;
@@ -46,14 +46,8 @@ export class ObjectiveArrow extends Component {
 
     private _currentTarget: Node = null;
     private _player: Node = null;
-    private _screenWidth: number = 0;
-    private _screenHeight: number = 0;
 
     start() {
-        const visibleSize = view.getVisibleSize();
-        this._screenWidth = visibleSize.width;
-        this._screenHeight = visibleSize.height;
-
         this._player = find('GameRoot/IdBr_character');
 
         if (this.arrowNode) this.arrowNode.active = false;
@@ -76,11 +70,16 @@ export class ObjectiveArrow extends Component {
 
         this._showArrow();
 
+        const windowSize = screen.windowSize;
+        const visibleSize = view.getVisibleSize();
+        const scaleX = visibleSize.width / windowSize.width;
+        const scaleY = visibleSize.height / windowSize.height;
+
         const playerScreen = new Vec3();
         this.gameCamera.worldToScreen(this._player.worldPosition, playerScreen);
         this.arrowNode.setPosition(
-            playerScreen.x - this._screenWidth / 2,
-            playerScreen.y - this._screenHeight / 2,
+            playerScreen.x * scaleX - visibleSize.width / 2,
+            playerScreen.y * scaleY - visibleSize.height / 2,
             0
         );
 
