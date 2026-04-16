@@ -45,6 +45,7 @@ export class WinScreen extends Component {
     private _onGameWin() {
         console.log('game-win event received');
         if (this.winScreen) this.winScreen.active = true;
+        AudioManager.instance?.stopBgMusic();
     }
 }
 

@@ -33,5 +33,9 @@ https://luxury-cendol-2742c1.netlify.app/
 - [x] Add a white blink or outline to boxes so players know they can interact with them.
 - [ ] Sync the hit sound effects to perfectly match the breaking animation to remove the current audio delay.
 - [ ] Add visual effects (VFX) triggered by the weapon upgrade.
-- [ ] Add background music.
+- [x] Add background music.
 - [ ] **Bonus:** Make broken boxes drop scrap sprites for the player to physically pick up.
+
+
+### Music
+Music by <a href="https://pixabay.com/users/backgroundmusicforvideos-46459014/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=358426">Maksym Malko</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=358426">Pixabay</a>

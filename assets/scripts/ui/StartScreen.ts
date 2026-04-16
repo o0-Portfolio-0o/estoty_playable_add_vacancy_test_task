@@ -23,6 +23,7 @@ export class StartScreen extends Component {
         if (this.hud) this.hud.active = true;
         if (this.objectiveArrow) this.objectiveArrow.active = true;
         AudioManager.instance?.playClick();
+        AudioManager.instance?.startBgMusic();
         GameManager.instance?.startGame();
     }
 }

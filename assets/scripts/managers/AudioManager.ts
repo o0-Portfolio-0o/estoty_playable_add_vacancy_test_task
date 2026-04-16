@@ -18,13 +18,34 @@ export class AudioManager extends Component {
     @property(AudioClip)
     public uiOpenSound: AudioClip = null;
 
+    @property(AudioClip)
+    public bgMusic: AudioClip = null;
+
+    @property
+    public bgMusicVolume: number = 0.3;
+
     private _audioSource: AudioSource = null;
+    private _bgMusicSource: AudioSource = null;
 
     onLoad(): void {
         AudioManager._instance = this;
         if (!this._audioSource) {
             this._audioSource = this.addComponent(AudioSource);
         }
+        if (this.bgMusic) {
+            this._bgMusicSource = this.addComponent(AudioSource);
+            this._bgMusicSource.clip = this.bgMusic;
+            this._bgMusicSource.loop = true;
+            this._bgMusicSource.volume = this.bgMusicVolume;
+        }
+    }
+
+    public startBgMusic(): void {
+        this._bgMusicSource?.play();
+    }
+
+    public stopBgMusic(): void {
+        this._bgMusicSource?.stop();
     }
 
     public playHit() {

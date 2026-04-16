@@ -11698,6 +11698,11 @@
       "__uuid__": "d5cb2c83-a51d-4923-a559-92c9ae188e65",
       "__expectedType__": "cc.AudioClip"
     },
+    "bgMusic": {
+      "__uuid__": "ec47eb99-04da-4768-9953-3ac3be2ecb33",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "bgMusicVolume": 0.3,
     "_id": "ee7bgmcDxHM4kVBmDaUrJu"
   },
   {
