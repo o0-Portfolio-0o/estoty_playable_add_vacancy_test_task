@@ -43,6 +43,7 @@ export class ResourceNode extends Component {
 
     private readonly ATTACK_INTERVAL = 1.0;
     private _hitFeedbackTriggered: boolean = false;
+    private _hasShownWeaponNeeded: boolean = false;
 
     private _isPulsing: boolean = false;
     private _wasInBlinkRange: boolean = false;
@@ -75,6 +76,17 @@ export class ResourceNode extends Component {
         } else if (!inRange && this._wasInBlinkRange) {
             this._wasInBlinkRange = false;
             if (this._canBeAttacked()) this._startPulse();
+        }
+
+        // One-shot locked feedback: shake the node and show popup when approaching a locked node
+        if (this._isPlayerInRange() && !this._canBeAttacked()) {
+            if (!this._hasShownWeaponNeeded) {
+                this._hasShownWeaponNeeded = true;
+                this._playLockedFeedback();
+                GameManager.instance?.node.emit('weapon-needed', this.requiredWeaponLevel);
+            }
+        } else {
+            this._hasShownWeaponNeeded = false;
         }
 
         if (!this._isPlayerInRange() || !this._canBeAttacked()) {
@@ -245,6 +257,25 @@ export class ResourceNode extends Component {
             .start();
         AudioManager.instance?.playHit();
         this._spawnParticles();
+    }
+
+    private _playLockedFeedback(): void {
+        Tween.stopAllByTarget(this.node);
+        const s = this.node.scale.clone();
+        tween(this.node)
+            .to(0.06, { scale: new Vec3(s.x * 1.1, s.y * 1.1, s.z * 1.1) })
+            .to(0.06, { scale: new Vec3(s.x * 0.95, s.y * 0.95, s.z * 0.95) })
+            .to(0.06, { scale: new Vec3(s.x * 1.08, s.y * 1.08, s.z * 1.08) })
+            .to(0.06, { scale: s })
+            .start();
+        AudioManager.instance?.playHit();
+
+        if (this._playerController) {
+            this._playerController.isAttacking = true;
+            this.scheduleOnce(() => {
+                if (this._playerController) this._playerController.isAttacking = false;
+            }, 0.3);
+        }
     }
 
     private _updateMeshVisibility(): void {
