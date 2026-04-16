@@ -28,6 +28,9 @@ export class CameraPanController extends Component {
     @property
     public holdDuration: number = 1.5;
 
+    @property
+    public upgradeDelay: number = 1.2;
+
     start() {
         GameManager.instance?.node.on('game-started', this._onGameStarted, this);
         GameManager.instance?.node.on('weapon-upgraded', this._onWeaponUpgraded, this);
@@ -51,8 +54,10 @@ export class CameraPanController extends Component {
         const target = level === WeaponLevel.L3 ? this.gatePanTarget : this.upgradePanTarget;
         if (!target) return;
         GameManager.instance?.setIdle();
-        this.cameraFollow.panTo(target, this.panDuration, this.holdDuration, () => {
-            GameManager.instance?.resume();
-        });
+        this.scheduleOnce(() => {
+            this.cameraFollow.panTo(target, this.panDuration, this.holdDuration, () => {
+                GameManager.instance?.resume();
+            });
+        }, this.upgradeDelay);
     }
 }
