@@ -199,7 +199,7 @@ export class ResourceNode extends Component {
 
         const outlineNode = new Node('_outline');
         mr.node.addChild(outlineNode);
-        outlineNode.setScale(1.12, 1.12, 1.12);
+        outlineNode.setScale(1.08, 1.08, 1.08);
 
         const outlineMR = outlineNode.addComponent(MeshRenderer);
         outlineMR.mesh = mr.mesh;
