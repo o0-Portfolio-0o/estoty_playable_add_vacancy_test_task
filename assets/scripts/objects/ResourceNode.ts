@@ -245,15 +245,17 @@ export class ResourceNode extends Component {
 
         const originalScale = this.node.scale.clone();
 
+        AudioManager.instance?.playHit();
         tween(this.node)
-            .to(0.08, { scale: new Vec3(
+            .to(0.04, { scale: new Vec3(
                 originalScale.x * 1.2,
                 originalScale.y * 1.2,
                 originalScale.z * 1.2,
             ) })
-            .to(0.08, { scale: originalScale })
+            .to(0.01, { scale: originalScale })
             .start();
-        AudioManager.instance?.playHit();
+        this._currentHits++;
+        this._updateMeshVisibility();
         this._spawnParticles();
     }
 
@@ -301,7 +303,7 @@ export class ResourceNode extends Component {
         this._isPulsing = false;
 
         tween(from)
-            .to(0.04, { scale: new Vec3(0, 0, 0) })
+            .to(0.01, { scale: new Vec3(0, 0, 0) })
             .call(() => {
                 from.active = false;
                 to.active = true;
@@ -328,8 +330,6 @@ export class ResourceNode extends Component {
     }
 
     private _onHit(): void {
-        this._currentHits++;
-        this._updateMeshVisibility();
 
         if (this._currentHits >= this.hitsToDestroy) {
             this._onDestroy();
@@ -338,6 +338,6 @@ export class ResourceNode extends Component {
 
         this.scheduleOnce(() => {
             this._hitFeedbackTriggered = false;
-        }, 0.4);
+        }, 0.1);
     }
 }
