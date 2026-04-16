@@ -9,7 +9,7 @@ https://luxury-cendol-2742c1.netlify.app/
 - [x] Clarify the overall goal (upgrading to escape) early on.
 - [x] Add an intro camera pan to the initial breakable boxes.
 - [x] Add camera pans to highlight the next area whenever the objective changes.
-- [ ] Add a guiding arrow that actively points to the current objective to explain the task.
+- [x] Add a guiding arrow that actively points to the current objective to explain the task.
 - [ ] **Bonus:** Add a striped hazard zone under breakables to highlight areas that need clearing.
 
 ## Level Design & Environment
