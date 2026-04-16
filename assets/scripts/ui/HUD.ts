@@ -21,7 +21,7 @@ export class HUD extends Component {
     public totalCountLabel: Label = null;
 
     @property(Node)
-    public upgradeModal: Node = null;
+    public upgradeModal: Node = null;;
 
     @property(Node)
     public weaponModalL2: Node = null;
@@ -31,6 +31,9 @@ export class HUD extends Component {
 
     @property(CraftBench)
     public craftBench: CraftBench = null;
+
+    @property([Node])
+    resourceContainers: Node[] = [];
 
     start() {
         //TODO: Extract to method attachlisteners
@@ -83,12 +86,12 @@ export class HUD extends Component {
             this.totalCountLabel.string = `${rm.resource2Required}`;
         } else {
             this.resourceLabels[1].active = false;
+            this.resourceContainers.forEach(r => r.active = false);
             this.currentCountLabel.string = "";
             this.separatorLabel.string = "";
             this.totalCountLabel.string = "";
         }
 
-        // this._popAnim(this.currentCountLabel);
         const shouldPopAllLabels =
             rm.resource1 === rm.resource1Required ||
             rm.resource2 === rm.resource2Required ||

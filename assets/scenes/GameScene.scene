@@ -16184,6 +16184,14 @@
       "__id__": 917
     },
     "craftBench": null,
+    "resourceContainers": [
+      {
+        "__id__": 817
+      },
+      {
+        "__id__": 837
+      }
+    ],
     "_id": "23eFJ7NtNHU4l6po6/75MP"
   },
   {
