@@ -31,7 +31,7 @@ export class PlayerAnimator extends Component {
 
         if (state === AnimationState.AXE) {
             const animState = this.animation.getState(state);
-            if (animState) animState.speed = 2.0;
+            if (animState) animState.speed = 2.5;
         }
     }
 

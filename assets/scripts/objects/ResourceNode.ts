@@ -127,11 +127,9 @@ export class ResourceNode extends Component {
         }
 
         this.node.active = false;
-        this.scheduleOnce(() => {
-            if (this._playerController) {
-                this._playerController.isAttacking = false;
-            }
-        }, 0.3);
+        if (this._playerController) {
+            this._playerController.isAttacking = false;
+        }
     }
 
     private _startPulse(): void {
@@ -303,7 +301,7 @@ export class ResourceNode extends Component {
         this._isPulsing = false;
 
         tween(from)
-            .to(0.08, { scale: new Vec3(0, 0, 0) })
+            .to(0.04, { scale: new Vec3(0, 0, 0) })
             .call(() => {
                 from.active = false;
                 to.active = true;
@@ -340,6 +338,6 @@ export class ResourceNode extends Component {
 
         this.scheduleOnce(() => {
             this._hitFeedbackTriggered = false;
-        }, 0.8);
+        }, 0.4);
     }
 }
