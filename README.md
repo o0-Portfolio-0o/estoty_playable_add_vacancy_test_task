@@ -22,7 +22,7 @@ https://luxury-cendol-2742c1.netlify.app/
 - [x] Add a minimal ground texture so the character feels anchored to the environment.
 
 ## User Interface (UI)
-- [ ] Add simple objective text updates in the center of the screen (e.g., "Gather scrap" -> "Upgrade weapon").
+- [x] Add simple objective text updates in the center of the screen (e.g., "Gather scrap" -> "Upgrade weapon").
 - [ ] Show a red "UPGRADE NEEDED" pop-up when hitting advanced boxes with a level 1 weapon.
 - [x] Replace the word "WOOD" in the UI with a wood log sprite and move the resource counter to the top right.
 - [x] Remove the unnecessary gate icon UI from the top right.

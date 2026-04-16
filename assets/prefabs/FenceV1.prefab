@@ -334,7 +334,7 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true,
+    "_enabled": false,
     "__prefab": {
       "__id__": 15
     },
@@ -345,6 +345,7 @@
     "requiredWeaponLevel": 3,
     "hitsToDestroy": 1,
     "attackRange": 1.5,
+    "blinkRange": 5,
     "meshL1": {
       "__id__": 2
     },
