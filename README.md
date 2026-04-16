@@ -28,10 +28,10 @@ https://luxury-cendol-2742c1.netlify.app/
 - [x] Remove the unnecessary gate icon UI from the top right.
 
 ## Interaction, VFX & Audio
-- [ ] Speed up the box-breaking animations and object decay times.
-- [ ] Sync box decay and destruction perfectly with the actual weapon hit.
+- [x] Speed up the box-breaking animations and object decay times.
+- [x] Sync box decay and destruction perfectly with the actual weapon hit.
 - [x] Add a white blink or outline to boxes so players know they can interact with them.
-- [ ] Sync the hit sound effects to perfectly match the breaking animation to remove the current audio delay.
+- [x] Sync the hit sound effects to perfectly match the breaking animation to remove the current audio delay.
 - [x] Add visual effects (VFX) triggered by the weapon upgrade.
 - [x] Add background music.
 - [ ] **Bonus:** Make broken boxes drop scrap sprites for the player to physically pick up.
